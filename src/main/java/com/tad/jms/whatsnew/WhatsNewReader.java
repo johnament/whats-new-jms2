@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Produces;
 import javax.jms.Connection;
@@ -21,13 +22,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 @Path("/jms")
-@RequestScoped
+@Stateless
 public class WhatsNewReader {
 
-	@Resource //(name = "jms/__defaultConnectionFactory")
+	@Resource(name = "jms/__defaultConnectionFactory")
 	private ConnectionFactory connFactory;
 
-	@Resource //(name = "jms/SomeQueue")
+	@Resource(name = "java:comp/env/jms/SomeQueue")
 	private Queue queue;
 
 	private Logger logger = Logger.getLogger(WhatsNewReader.class
